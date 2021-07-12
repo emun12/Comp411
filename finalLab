@@ -1,0 +1,164 @@
+#include <stdio.h>  /* Need for standard I/O functions */
+#include <string.h> /* Need for strlen() */
+
+typedef struct {
+      int year;
+      int month;
+      int day;
+      int ID;
+    } record;
+
+
+void main(){
+
+record data[50];
+record final[50];
+
+int i=0;
+int count = 0;
+
+
+//printf("record num%i ", count);
+scanf("%i", &count);
+
+
+int count2 = count;
+int printCount = count;
+
+while(count>0){
+scanf("%i%i%i%i", &data[count].year, &data[count].month, &data[count].day, &data[count].ID);
+//printf("%i%i%i%i",data[count].year, data[count].month, data[count].day, data[count].ID);
+
+count--;
+
+}
+
+while(count2 > 0){
+
+	if(data[count2].year > data[count2+1].year){
+	   final[count2].year = data[count2+1].year;
+	  final[count2+1].year = data[count2].year;
+	final[count2].month = data[count2+1].month;
+          final[count2+1].month = data[count2].month;
+	final[count2].day = data[count2+1].day;
+          final[count2+1].day = data[count2].day;
+	final[count2].ID = data[count2+1].ID;
+          final[count2+1].ID = data[count2].ID;
+	// example is if 2016 > 2015
+	}
+
+	else  if(data[count2].year < data[count2+1].year){
+           final[count2].year = data[count2].year;
+          final[count2+1].year = data[count2+1].year;
+        final[count2].month = data[count2].month;
+          final[count2+1].month = data[count2+1].month;
+        final[count2].day = data[count2].day;
+          final[count2+1].day = data[count2+1].day;
+        final[count2].ID = data[count2].ID;
+          final[count2+1].ID = data[count2+1].ID;
+        // example is if 1995 < 2000
+        }
+
+
+
+	else if(data[count2].year == data[count2+1].year){
+		if(data[count2].month > data[count2+1].month){
+		 final[count2].month = data[count2+1].month;
+		final[count2+1].month = data[count2].month;
+		final[count2].year = data[count2+1].year;
+                final[count2+1].year = data[count2].year;
+		final[count2].day = data[count2+1].day;
+                final[count2+1].day = data[count2].day;
+		final[count2].ID = data[count2+1].ID;
+                final[count2+1].ID = data[count2].ID;
+		}
+
+		if(data[count2].month < data[count2+1].month){
+
+		final[count2].month = data[count2].month;
+		final[count2+1].month = data[count2+1].month;
+
+		final[count2].year = data[count2].year;
+                final[count2+1].year = data[count2+1].year;
+		final[count2].day = data[count2].day;
+                final[count2+1].day = data[count2+1].day;
+		final[count2].ID = data[count2].ID;
+                final[count2+1].ID = data[count2+1].ID;
+
+
+		} 
+
+		if(data[count2].month == data[count2+1].month){
+			if(data[count2].day > data[count2+1].day){
+				final[count2].day = data[count2+1].day;
+				final[count2+1].day = data[count2].day;
+				final[count2].year = data[count2+1].year;
+                                final[count2+1].year = data[count2].year;
+				final[count2].month = data[count2+1].month;
+                                final[count2+1].month = data[count2].month;
+				final[count2].ID = data[count2+1].ID;
+                                final[count2+1].ID = data[count2].ID;
+			}
+
+			if(data[count2].day < data[count2+1].day){
+				final[count2].day = data[count2].day;
+                                final[count2+1].day = data[count2+1].day;
+                                final[count2].year = data[count2].year;
+                                final[count2+1].year = data[count2+1].year;
+                                final[count2].month = data[count2].month;
+                                final[count2+1].month = data[count2+1].month;
+                                final[count2].ID = data[count2].ID;
+                                final[count2+1].ID = data[count2+1].ID;
+
+			}
+			if(data[count2].day == data[count2+1].day){
+				if(data[count2].ID > data[count2+1].ID){
+				final[count2].day = data[count2+1].day;
+                               final[count2+1].day = data[count2].day;
+                                final[count2].year = data[count2+1].year;
+                                final[count2+1].year = data[count2].year;
+                                final[count2].month = data[count2+1].month;
+                                final[count2+1].month = data[count2].month;
+                                final[count2].ID = data[count2+1].ID;
+                                final[count2+1].ID = data[count2].ID;
+
+				}
+
+				if(data[count2].ID < data[count2+1].ID){
+				 final[count2].day = data[count2].day;
+                                final[count2+1].day = data[count2+1].day;
+                                final[count2].year = data[count2].year;
+                                final[count2+1].year = data[count2+1].year;
+                                final[count2].month = data[count2].month;
+                                final[count2+1].month = data[count2+1].month;
+                                final[count2].ID = data[count2].ID;
+                                final[count2+1].ID = data[count2+1].ID;
+
+				}
+				if(data[count2].ID == data[count2+1].ID){
+				final[count2].day = data[count2].day;
+                                final[count2+1].day = data[count2+1].day;
+                                final[count2].year = data[count2].year;
+                                final[count2+1].year = data[count2+1].year;
+                                final[count2].month = data[count2].month;
+                                final[count2+1].month = data[count2+1].month;
+                                final[count2].ID = data[count2].ID;
+                                final[count2+1].ID = data[count2+1].ID;
+
+				}
+			}
+
+		}
+	}
+
+count2--;
+}
+
+while(printCount > 0){
+
+printf("%i %i %i %i\n",final[printCount].year, final[printCount].month, final[printCount].day, final[printCount].ID);
+printCount--;
+}
+
+
+}
