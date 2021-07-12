@@ -1,0 +1,230 @@
+
+.data
+  AA:     .space 400  		# int AA[100]
+  BB:     .space 400  		# int BB[100]
+  CC:     .space 400  		# int CC[100]
+  m:      .space 4   		# m is an int whose value is at most 10
+                     		# actual size of the above matrices is mxm
+
+      # You may add more variables here if you need to
+
+.text
+
+main:
+
+
+#------- INSERT YOUR CODE HERE for main -------
+#  
+#  3.  Compute matrix product.  You will need triple-nested loops for this.
+#  4.  Print the result, one row per line, with one (or more) space(s) between
+#      values within a row.
+#  5.  Exit.
+#
+#------------ END CODE ---------------
+
+# 1.  First, read m (the matrices will then be size mxm).
+				# Read the m
+  addi	$v0, $0, 5			# system call 5 is for reading an integer
+  syscall 				# integer value read is in $v0
+  add	$8, $0, $v0			# copy m value into $8
+  
+  #  2.  Next, read matrix A followed by matrix B.
+  
+  #calculate size (m) for loops
+  #mult $8, $8   # multiplies m by m
+ # mflo $9
+
+  
+  # initilize variables i and j
+  
+  
+  addi $10, $0, 0
+ 
+  while1:
+  	bgt $10, $8, while3#i can't be greater than size
+  	# if it is greater, then move to next nested for loop
+  	 addi $11, $0, 0
+  	while2:
+  		bgt $11, $8, while1after #j can't be greater than size otherwise goes to next loop
+ 
+  		#sll $15, $0, 2  #changing counter
+  		#addu $15, $15, $12 #changing base memory address
+  		
+  		#read input from user
+  		#li $v0, 5
+  		#syscall  #system call to read in integer
+  		#move $12, $v0
+  		
+  		
+  		addi	$v0, $0, 5			# system call 5 is for reading an integer
+  		syscall 				# integer value read is in $v0
+  		add	$12, $0, $v0
+  		
+  		#getting index
+  		mult $8, $11  #size*j
+  		mflo $13
+  		add $14, $13, $10 #i +size*j
+  	
+  		#la $25, AA
+  		sll $15, $14, 2  #moving counter
+  		#add $15, $25, $15
+  		sw $12, AA($15)   #store in designated spot in memory
+  		
+  		addi $11, $11, 1 #increment j
+  		
+  		
+  		j while2
+  		
+  	while1after:
+  		addi $10, $10, 1 #increment i
+  		
+  	 j while1
+
+  		
+  		#addi $10, $10, 1 #increment i
+  	
+ 
+  
+  
+  
+  #load c back into array so need to use store word!
+  # having another double for loop that multiplies a&b and stores it in c
+ 
+  
+  # set i and j back to 0 for next nested loop
+  
+  
+  # 2nd nested for loop to read in BB values
+   
+  
+  
+  addi $10, $0, 0
+ 
+  while3:
+  	bgt $10, $8, while5#i can't be greater than size
+  	# if it is greater, then move to next nested for loop
+  	 addi $11, $0, 0
+  	while4:
+  		bgt $11, $8, while3after #j can't be greater than size otherwise goes to next loop
+ 
+  		#sll $15, $0, 2  #changing counter
+  		#addu $15, $15, $12 #changing base memory address
+  		
+  		#read input from user
+  		#li $v0, 5
+  		#syscall  #system call to read in integer
+  		#move $12, $v0
+  		
+  		
+  		addi	$v0, $0, 5			# system call 5 is for reading an integer
+  		syscall 				# integer value read is in $v0
+  		add	$12, $0, $v0
+  		
+  		#getting index
+  		mult $8, $11  #size*j
+  		mflo $13
+  		add $14, $13, $10 #i +size*j
+  	
+  		#la $25, AA
+  		sll $15, $14, 2  #moving counter
+  		#add $15, $25, $15
+  		sw $12, BB($15)   #store in designated spot in memory
+  		
+  		addi $11, $11, 1 #increment j
+  		
+  		
+  		j while4
+  		
+  	while3after:
+  		addi $10, $10, 1 #increment i
+  		
+  	 j while3
+
+
+while5:
+bgt $10, $8, printc
+	addi $11, $0, 0
+	while6:
+		bgt $11, $8, while5after
+		
+		#calculate index1
+		mult $11, $8
+		mflo $13
+		add $13, $14, $10
+		
+		sw $0, CC($13)
+		
+		addi $12, $0, 0
+		
+		while7:
+			bgt $12, $8, while6after
+			
+			#calculate index2
+			mult $12, $8
+			mflo $14
+			add $14, $14, $10
+			
+			#calculate index3
+			mult $11, $8
+			mflo $15
+			add $15, $15, $12
+			
+			
+			lw $16, AA($14)
+			lw $17, BB($15)
+			
+			mult $16, $17
+			mflo $18
+			
+			lw $19, CC($13)
+			
+			add $20, $18, $19
+			sw $20, CC($13)
+			
+			addi $12, $12, 1
+			
+		j while6
+	while6after:
+		
+		addi $11, $11, 1
+		
+		j while5
+	while5after:
+		
+		addi $10, $10, 1
+
+
+
+printc:
+addi $22, $22, 0
+whileprint1:
+	bgt $22, $8, exit
+	addi $23, $8, 0
+	whileprint2:
+		bgt $23, $8, afterprint1
+		
+		 addi $v0, $0, 1           # print calculated perimeter
+  		 add $a0, $0, $20
+   		syscall
+   		
+   	addi $23, $23, 1
+   	
+   	j whileprint2
+   	
+   	afterprint1:   	
+   	addi $22, $22, 1
+   	
+   j whileprint1
+
+
+
+
+
+exit:                     # this is code to terminate the program -- don't mess with this!
+  addi $v0, $0, 10      	# system call code 10 for exit
+  syscall               	# exit the program
+
+
+
+
+#------------ END CODE ---------------
